@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeitreise – Ost Cola Blog | Geschichten aus Brandenburg an der Havel</title>
+    <meta name="description" content="Zeitreise – Der Ost Cola Blog. Berichte, Erinnerungen und Geschichten aus Brandenburg an der Havel vor 1989 und von den legendären Ost Cola Partys.">
+    <meta name="keywords" content="Ost Cola, Blog, Brandenburg an der Havel, DDR, Erinnerungen, Nostalgie, Zeitreise, Geschichten">
+    <link rel="canonical" href="https://ostcola.com/zeitreise.html">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+        :root {
+            --rust: #b5452a;
+            --rust-dark: #8c3520;
+            --navy: #2a2d5e;
+            --navy-light: #3d4180;
+            --cream: #f5efe6;
+            --warm-white: #faf8f4;
+            --dark: #1a1a2e;
+            --gold: #d4a543;
+            --sepia: #704214;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Source Sans 3', sans-serif; color: var(--dark); background: var(--warm-white); line-height: 1.7; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(26,26,46,0.95); backdrop-filter: blur(10px);
+            padding: 0.8rem 2rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-logo { font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; color: var(--cream); text-decoration: none; letter-spacing: 2px; text-transform: lowercase; }
+        .nav-links { display: flex; list-style: none; gap: 1.8rem; }
+        .nav-links a { color: var(--cream); text-decoration: none; font-size: 0.95rem; letter-spacing: 0.5px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+        .nav-toggle span { display: block; width: 25px; height: 2px; background: var(--cream); margin: 6px 0; transition: 0.3s; }
+
+        /* HERO */
+        .blog-hero {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--dark), var(--navy));
+            color: var(--cream); text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .blog-hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+            pointer-events: none;
+        }
+        .blog-hero h1 { font-family: 'Archivo Black', sans-serif; font-size: 3rem; text-transform: lowercase; letter-spacing: 4px; margin-bottom: 0.5rem; position: relative; }
+        .blog-hero p { opacity: 0.7; font-size: 1.1rem; position: relative; max-width: 600px; margin: 0 auto; }
+
+        /* CONTENT */
+        .blog-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+
+        /* ARTICLE CARD */
+        .article {
+            background: white; border-radius: 12px; margin-bottom: 3rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.06); overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .article:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
+
+        .article-image {
+            width: 100%; height: 300px; object-fit: cover;
+            filter: sepia(15%) contrast(1.05); transition: filter 0.4s;
+        }
+        .article:hover .article-image { filter: sepia(0%); }
+
+        .article-body { padding: 2rem 2.5rem 2.5rem; }
+
+        .article-meta {
+            display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+            font-size: 0.85rem; color: #999;
+        }
+        .article-tag {
+            background: var(--cream); color: var(--rust); padding: 0.2rem 0.8rem;
+            border-radius: 20px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;
+        }
+
+        .article h2 {
+            font-family: 'Archivo Black', sans-serif; font-size: 1.6rem;
+            color: var(--navy); text-transform: lowercase; letter-spacing: 1px;
+            margin-bottom: 1rem; line-height: 1.3;
+        }
+        .article h2 a { color: var(--navy); text-decoration: none; transition: color 0.3s; }
+        .article h2 a:hover { color: var(--rust); }
+
+        .article p { color: #444; font-size: 1.02rem; margin-bottom: 1rem; }
+
+        .article-source {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            color: var(--rust); font-weight: 600; text-decoration: none; font-size: 0.95rem;
+            transition: gap 0.3s;
+        }
+        .article-source:hover { gap: 0.8rem; }
+        .article-source::after { content: '→'; }
+
+        /* SIDEBAR-STYLE QUOTE */
+        .article blockquote {
+            border-left: 4px solid var(--rust); padding: 1rem 1.5rem;
+            margin: 1.5rem 0; background: var(--cream); border-radius: 0 8px 8px 0;
+            font-style: italic; color: var(--sepia);
+        }
+        .article blockquote cite { display: block; margin-top: 0.5rem; font-style: normal; font-size: 0.85rem; color: #999; }
+
+        /* CTA BANNER */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--rust), var(--rust-dark));
+            color: var(--cream); text-align: center; border-radius: 12px;
+            padding: 3rem 2rem; margin: 2rem 0 3rem;
+        }
+        .cta-banner h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.5rem; text-transform: lowercase; letter-spacing: 2px; margin-bottom: 0.8rem; }
+        .cta-banner p { opacity: 0.85; margin-bottom: 1.5rem; }
+        .cta-banner a {
+            display: inline-block; padding: 0.8rem 2.5rem; background: var(--cream);
+            color: var(--rust-dark); text-decoration: none; font-family: 'Archivo Black', sans-serif;
+            font-size: 0.95rem; letter-spacing: 1px; text-transform: lowercase; border-radius: 4px;
+            transition: transform 0.3s;
+        }
+        .cta-banner a:hover { transform: translateY(-2px); }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark); color: var(--cream); padding: 2rem;
+            text-align: center; font-size: 0.85rem; opacity: 0.6;
+        }
+        footer a { color: var(--cream); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* SOCIAL BAR */
+        .social-bar { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 900; display: flex; flex-direction: column; }
+        .social-bar a { display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 1rem; color: white; text-decoration: none; font-weight: 600; font-size: 0.85rem; width: 50px; transition: width 0.3s ease; overflow: hidden; white-space: nowrap; }
+        .social-bar a:hover { width: 200px; }
+        .social-bar a svg { flex-shrink: 0; }
+        .social-bar .sb-facebook { background: #1877F2; border-radius: 8px 0 0 0; }
+        .social-bar .sb-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-radius: 0 0 0 8px; }
+
+        @media (max-width: 700px) {
+            .nav-links { display: none; }
+            .nav-links.active { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(26,26,46,0.98); padding: 1.5rem 2rem; gap: 1rem; }
+            .nav-toggle { display: block; }
+            .blog-hero h1 { font-size: 2rem; }
+            .article-body { padding: 1.5rem; }
+            .article h2 { font-size: 1.3rem; }
+            .article-image { height: 200px; }
+            .social-bar a { width: 44px; }
+            .social-bar a:hover { width: 44px; }
+            .social-bar a span { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">ost cola</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#about">Über uns</a></li>
+            <li><a href="index.html#event">Die Party</a></li>
+            <li><a href="index.html#tickets">Tickets</a></li>
+            <li><a href="index.html#gallery">Galerie</a></li>
+            <li><a href="zeitreise.html" style="color: var(--gold);">Zeitreise</a></li>
+            <li><a href="index.html#press">Presse</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <div class="social-bar">
+        <a href="https://www.facebook.com/share/17Lq56snY4/?mibextid=wwXIfr" target="_blank" rel="noopener" class="sb-facebook">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span>Facebook</span>
+        </a>
+        <a href="http://www.instagram.com/ostcola/" target="_blank" rel="noopener" class="sb-instagram">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            <span>Instagram</span>
+        </a>
+    </div>
+
+    <section class="blog-hero">
+        <h1>zeitreise</h1>
+        <p>Berichte, Erinnerungen und Geschichten aus einer anderen Zeit.</p>
+    </section>
+
+    <div class="blog-container">
+
+        <!-- ARTICLE 1: Comeback 2026 -->
+        <article class="article">
+            <img src="comeback-2026.jpg" alt="Ost Cola Party – Hunderte Brandenburger feiern" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Neuigkeiten</span>
+                    <span>31. Dezember 2025</span>
+                </div>
+                <h2>ost cola kehrt zurück – die 11. party steigt am 4. juli 2026</h2>
+                <p>Nach der vermeintlich letzten Party 2023 war eigentlich Schluss. Doch die Brandenburger wollten es anders. Immer wieder erreichten die Organisatoren Bitten und Anfragen, ob es nicht doch weitergehen könnte. Nun ist es offiziell: Am 4. Juli 2026 findet die 11. Ost Cola Party statt – mit einem fast neuen Team und frischer Energie.</p>
+                <p>Thorsten Müller, Alexander Pollok und Maik Bernhardt bilden die neue Kernmannschaft. Verstärkung kommt von der nächsten Generation: Emily Knepper und Steffen Melies bringen neue Perspektiven ein. Die Fotoausstellung steht diesmal unter dem Motto "Vorher, nachher" – historische Aufnahmen werden den heutigen Ansichten gegenübergestellt.</p>
+                <blockquote>
+                    "Wir sind gekommen, um zu bleiben."
+                    <cite>– Thorsten Müller, Mitveranstalter</cite>
+                </blockquote>
+                <p>Das Besondere bleibt: Ost Cola ist und war immer das größte Klassentreffen der Stadt. Etliche Besucher legten in der Vergangenheit ihre eigenen Klassentreffen so, dass sie zur Ost Cola Party kommen konnten – ein Wiedersehen der besonderen Art.</p>
+                <a href="https://www.maz-online.de/lokales/brandenburg-havel/ost-cola-in-brandenburg-an-der-havel-legendaere-partyreihe-kehrt-2026-zurueck-DKJDDIN5LVDQXOM63VV3KBSQHE.html" target="_blank" rel="noopener" class="article-source">Zum Artikel in der MAZ</a>
+            </div>
+        </article>
+
+        <!-- ARTICLE 2: Wie alles begann -->
+        <article class="article">
+            <img src="../galerie/WhatsApp Image 2026-02-10 at 11.48.05.jpeg" alt="Jugend in Brandenburg vor 1989" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Geschichte</span>
+                    <span>November 2019</span>
+                </div>
+                <h2>schnappschüsse aus einem verschwundenen land – wie ost cola entstand</h2>
+                <p>Es begann im Sommer 2010, während der Fußball-WM. Matthias Knoppe, gelangweilt vom Fernsehprogramm, kramte in einem Umzugskarton voller alter Fotos. Die Bilder zeigten Brandenburg an der Havel in den 70er und 80er Jahren – Straßen, Freunde, den ganz normalen Alltag in einer Welt, die es nicht mehr gibt.</p>
+                <p>Zusammen mit Alexander Pollok und Ulf Tschenisch stellte Knoppe die Bilder auf Facebook. Der Name "Ost Cola" entstand aus der Frage, was wohl das Groteskeste im Osten gewesen sei – und die gleichnamige Cola-Marke wurde zum Symbol für eine ganze Generation von Erinnerungen.</p>
+                <p>Was mit 17 "Gefällt mir"-Klicks begann, wuchs rasant. Bereits nach wenigen Wochen hatte die Seite Tausende Fans. Heute folgen über 10.000 Menschen der Ost Cola Seite – ein Siebtel der Einwohnerzahl Brandenburgs. Aus der Facebook-Seite wurden Ausstellungen, aus den Ausstellungen Partys, und aus den Partys das größte Klassentreffen der Stadt.</p>
+                <blockquote>
+                    "Es sind einfach nur unsere Erinnerungen an unsere Kindheit und Jugend, die wir mit vielen Menschen teilen."
+                    <cite>– Thorsten Müller</cite>
+                </blockquote>
+                <a href="https://www.rbb24.de/politik/thema/2019/30-Jahre-Mauerfall/beitraege/ost-cola-facebook-projekt-ddr-brandenburg-havel.html" target="_blank" rel="noopener" class="article-source">Zum Artikel beim rbb24</a>
+            </div>
+        </article>
+
+        <!-- CTA BANNER -->
+        <div class="cta-banner">
+            <h3>dabei sein am 04. juli 2026</h3>
+            <p>Sichere dir jetzt dein Ticket für die 11. Ost Cola Party im Klubhaus Philipp Müller.</p>
+            <a href="index.html#tickets">tickets sichern</a>
+        </div>
+
+        <!-- ARTICLE 3: Fotokollektiv & Bildbände -->
+        <article class="article">
+            <img src="../galerie/WhatsApp Image 2026-02-11 at 20.16.21.jpeg" alt="Jugendklubhaus Philipp Müller Einladung 1987" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Kultur</span>
+                    <span>Juni 2024</span>
+                </div>
+                <h2>vom facebook-post zum bildband – die ost cola bücher</h2>
+                <p>Was als digitales Fotoalbum auf Facebook begann, ist längst auch zwischen Buchdeckeln angekommen. Drei Bildbände sind bisher erschienen – vollgepackt mit Fotos, Geschichten und Erinnerungen aus Brandenburg an der Havel. Vom Jugendklubhaus über den Molkenmarkt bis zu den Straßenbahnlinien, die das Stadtbild prägten.</p>
+                <p>Die Bücher sind mehr als Fotobände: Sie sind Zeitkapseln. Jedes Bild erzählt eine Geschichte, und viele Brandenburger erkennen sich, ihre Familien oder ihre Nachbarn wieder. Das rbb Kulturmagazin berichtete 2024 ausführlich über das Fotokollektiv und seine Arbeit.</p>
+                <p>Der dritte Bildband wurde bei der Ost Cola Party 2023 vorgestellt – und war innerhalb kürzester Zeit vergriffen. Ein vierter Band ist in Planung.</p>
+                <a href="https://www.rbb-online.de/rbbkultur-magazin/archiv/20240601_1830/ost-cola-foto-kollektiv-brandenburg-an-der-havel-fotobuch.html" target="_blank" rel="noopener" class="article-source">Zum Beitrag beim rbb Kultur</a>
+            </div>
+        </article>
+
+        <!-- ARTICLE 4: 10. Party 2023 -->
+        <article class="article">
+            <img src="../galerie/WhatsApp Image 2025-10-30 at 12.30.59(1).jpeg" alt="Ikarus-Bus Brandenburg" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Rückblick</span>
+                    <span>Juli 2023</span>
+                </div>
+                <h2>die 10. ost cola party – ein abschied, der keiner war</h2>
+                <p>Im Sommer 2023 sollte eigentlich Schluss sein. Die 10. Ost Cola Party im Brandenburger Theater war als krönender Abschluss geplant – und wurde genau das: Ein Abend voller Emotionen, Wiedersehen und Erinnerungen. Hunderte Brandenburger feierten bis tief in die Nacht.</p>
+                <p>Der Aufwand war enorm geworden, die Kosten stiegen von Party zu Party. Doch die Stimmung an diesem Abend zeigte allen Beteiligten, wie wichtig dieses Format für die Stadt geworden war. Das Meetingpoint Brandenburg berichtete von einem "vollen Erfolg" und der Vorstellung des dritten Ost Cola Bildbandes.</p>
+                <p>Was niemand ahnte: Es sollte kein Abschied werden, sondern nur eine Pause. Die überwältigende Resonanz der Besucher legte den Grundstein für das Comeback 2026.</p>
+                <a href="https://meetingpoint-brandenburg.de/neuigkeiten/artikel/167795-die-letzte-ost-cola-war-wieder-ein-voller-erfolg-3-ost-cola-bildband-wurde-vorgestellt" target="_blank" rel="noopener" class="article-source">Zum Artikel beim Meetingpoint</a>
+            </div>
+        </article>
+
+        <!-- ARTICLE 5: Nostalgie in den 70ern und 80ern -->
+        <article class="article">
+            <img src="../galerie/WhatsApp Image 2026-02-28 at 12.22.50.jpeg" alt="Brandenburg Innenstadt DDR-Zeit" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Rückblick</span>
+                    <span>2019</span>
+                </div>
+                <h2>reise in die 70er und 80er – so nostalgisch war die ost cola party im theater</h2>
+                <p>Die Ost Cola Partys im Brandenburger Theater waren von Anfang an etwas Besonderes. Keine normale Disko, sondern eine Zeitmaschine: An den Wänden hingen Fotos aus den 70er und 80er Jahren, auf der Leinwand liefen Bilder vom alten Brandenburg, und die Musik nahm alle mit zurück in eine andere Epoche.</p>
+                <p>Die MAZ berichtete von einer ganz eigenen Atmosphäre – Menschen, die sich jahrelang nicht gesehen hatten, fielen sich in die Arme. Ehemalige Schulkameraden, Arbeitskollegen, Nachbarn. Für viele war der Abend mehr als eine Party: Es war die Möglichkeit, ein Stück Vergangenheit noch einmal lebendig werden zu lassen.</p>
+                <p>Mit jeder Party wuchs die Fotosammlung. Besucher brachten eigene Bilder mit, erzählten Geschichten und trugen dazu bei, dass Ost Cola weit mehr wurde als eine Veranstaltung – es wurde ein lebendiges Archiv einer ganzen Stadtgeschichte.</p>
+                <a href="https://www.maz-online.de/lokales/brandenburg-havel/reise-in-die-70er-und-80er-so-nostalgisch-war-die-ost-cola-party-im-theater-QSYBZABJ2ZXKPNH3DCTNHQYVNU.html" target="_blank" rel="noopener" class="article-source">Zum Artikel in der MAZ</a>
+            </div>
+        </article>
+
+        <!-- ARTICLE 6: 700 Brandenburger -->
+        <article class="article">
+            <img src="../galerie/WhatsApp Image 2026-02-10 at 11.48.01.jpeg" alt="DDR-Kaufhalle Brandenburg" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Rückblick</span>
+                    <span>2017</span>
+                </div>
+                <h2>700 brandenburger feiern – das größte klassentreffen der stadt</h2>
+                <p>Siebenhundert Menschen in einem Saal, die alle eins gemeinsam haben: Brandenburg an der Havel. So lässt sich die Ost Cola Party in ihrer Hochphase beschreiben. Was als kleine Fotoausstellung begann, hatte sich zu einem der größten Kulturereignisse der Stadt entwickelt.</p>
+                <p>Die Mischung macht es: Eine Ausstellung mit historischen Fotos, bei denen man immer wieder jemanden entdeckt, den man kennt. DJs, die genau die richtige Musik spielen – eine Mischung aus DDR-Hits und den Sounds der Jugend. Bars, an denen man mit alten Bekannten anstößt. Und überall Geschichten, die erzählt werden.</p>
+                <p>Die Ost Cola Party bewies: Nostalgie ist kein Rückwärtsblicken, sondern ein Zusammenkommen. Die gemeinsamen Erinnerungen verbinden Menschen über Jahrzehnte hinweg – egal, wohin es sie inzwischen verschlagen hat.</p>
+                <a href="https://www.maz-online.de/lokales/brandenburg-havel/700-brandenburger-feiern-ost-cola-party-3SH7A3R74C4UGMOBFRQVPQZ2PU.html" target="_blank" rel="noopener" class="article-source">Zum Artikel in der MAZ</a>
+            </div>
+        </article>
+
+        <!-- ARTICLE 7: Anfänge -->
+        <article class="article">
+            <img src="../galerie/WhatsApp Image 2025-12-14 at 15.32.32.jpeg" alt="Straßenbahn Brandenburg an der Havel" class="article-image">
+            <div class="article-body">
+                <div class="article-meta">
+                    <span class="article-tag">Geschichte</span>
+                    <span>2014</span>
+                </div>
+                <h2>zurück in die jugend – die erste fotoausstellung</h2>
+                <p>Alles begann mit einem Umzugskarton voller Fotos und einer Facebook-Seite. Doch die Resonanz war so groß, dass schnell klar wurde: Diese Bilder gehören nicht nur ins Internet – sie verdienen es, ausgestellt zu werden. 2014 fand die erste Ost Cola Fotoausstellung statt.</p>
+                <p>Bilder vom Molkenmarkt, von der Straßenbahn, vom Hauptbahnhof. Schulklassen, Sportvereine, Betriebsfeste. Alltag in einer Stadt, die sich seither grundlegend verändert hat – aber deren Seele in diesen Bildern weiterlebt. Die MAZ berichtete von einer Schau, die Besucher zu Tränen rührte.</p>
+                <p>Die Ausstellung war der Startschuss für alles, was folgen sollte: Partys, Bildbände, eine Gemeinschaft von tausenden Brandenburgern, die ihre Erinnerungen teilen. Und der Beweis, dass ein paar alte Fotos eine ganze Stadt zusammenbringen können.</p>
+                <a href="https://www.maz-online.de/lokales/brandenburg-havel/zurueck-in-die-jugend-ostcola-schau-voller-fotos-aus-alter-zeit-EF37JMMIU46HS3HYGFJOXNKL5M.html" target="_blank" rel="noopener" class="article-source">Zum Artikel in der MAZ</a>
+            </div>
+        </article>
+
+        <!-- VIDEO -->
+        <article class="article">
+            <div class="article-body" style="text-align: center;">
+                <div class="article-meta" style="justify-content: center;">
+                    <span class="article-tag">Video</span>
+                    <span>2014</span>
+                </div>
+                <h2>wo alles anfing – der film zum start</h2>
+                <p style="margin-bottom: 1.5rem;">Das Video von den Anfängen von Ost Cola – als noch niemand ahnte, was daraus werden würde.</p>
+                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px;">
+                    <iframe src="https://www.youtube.com/embed/DEI3j_tXPDs" style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </article>
+
+        <!-- FINAL CTA -->
+        <div class="cta-banner">
+            <h3>du hast auch fotos?</h3>
+            <p>Schick uns deine Bilder aus Brandenburg vor 1989 – für die nächste Ausstellung.</p>
+            <a href="index.html#archive">fotos einreichen</a>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Ost Cola UG (haftungsbeschränkt) · <a href="index.html">Zurück zur Startseite</a> · <a href="mailto:ostcolabrb@gmail.com">ostcolabrb@gmail.com</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('navToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
