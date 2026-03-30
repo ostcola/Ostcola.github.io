@@ -2,10 +2,952 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Bilder DDR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilder vor 1989 - ost cola</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Variables */
+        :root {
+            --color-rust: #b5452a;
+            --color-navy: #2a2d5e;
+            --color-cream: #f0e8d8;
+            --color-dark: #1a1a2e;
+            --color-gold: #d4a543;
+            --bg-color: #ede5d5;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--color-dark);
+            line-height: 1.6;
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212, 165, 67, 0.03) 35px, rgba(212, 165, 67, 0.03) 70px),
+                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(181, 69, 42, 0.03) 35px, rgba(181, 69, 42, 0.03) 70px);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--color-navy);
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 4px solid var(--color-gold);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            color: var(--color-cream);
+            text-transform: lowercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--color-rust);
+        }
+
+        .header-link {
+            color: var(--color-cream);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .header-link:hover {
+            color: var(--color-gold);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Container */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Title Section */
+        .title-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(212, 165, 67, 0.1) 0%, rgba(181, 69, 42, 0.1) 100%);
+            border-left: 5px solid var(--color-rust);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2.8rem;
+            color: var(--color-navy);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1.3rem;
+            color: var(--color-rust);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--color-dark);
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .intro-text strong {
+            color: var(--color-rust);
+        }
+
+        /* Upload Section */
+        .upload-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 6px 16px rgba(42, 45, 94, 0.12);
+            margin-top: 2rem;
+            border-top: 5px solid var(--color-gold);
+        }
+
+        .section-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.6rem;
+            color: var(--color-navy);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            font-size: 0.95rem;
+        }
+
+        .optional {
+            color: var(--color-rust);
+            font-weight: normal;
+            font-size: 0.85rem;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1rem;
+            color: var(--color-dark);
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-rust);
+            background-color: #fafaf8;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Drag & Drop Zone */
+        .dropzone {
+            border: 3px dashed var(--color-navy);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            text-align: center;
+            background-color: #fafaf8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .dropzone:hover {
+            border-color: var(--color-rust);
+            background-color: rgba(181, 69, 42, 0.05);
+        }
+
+        .dropzone.dragover {
+            border-color: var(--color-rust);
+            background-color: rgba(181, 69, 42, 0.1);
+            box-shadow: 0 4px 12px rgba(181, 69, 42, 0.2);
+        }
+
+        .dropzone-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .dropzone-text {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .dropzone-subtext {
+            font-size: 0.9rem;
+            color: var(--color-rust);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        /* File Preview Section */
+        .preview-section {
+            margin: 1.5rem 0;
+            display: none;
+        }
+
+        .preview-title {
+            font-weight: 600;
+            color: var(--color-navy);
+            margin-bottom: 1rem;
+        }
+
+        .preview-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(181, 69, 42, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .preview-remove:hover {
+            background: var(--color-rust);
+        }
+
+        .preview-info {
+            font-size: 0.75rem;
+            padding: 0.5rem;
+            background: #fafaf8;
+            border-top: 1px solid #ddd;
+        }
+
+        /* Upload Progress */
+        .upload-progress {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f5f3ef;
+            border-radius: 6px;
+            border-left: 4px solid var(--color-gold);
+        }
+
+        .progress-item {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .filename {
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-rust), var(--color-gold));
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .progress-status {
+            font-size: 0.8rem;
+            color: var(--color-rust);
+            margin-top: 0.3rem;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 0.75rem 2rem;
+            font-family: 'Source Sans 3', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--color-rust);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #9a3621;
+            box-shadow: 0 4px 12px rgba(181, 69, 42, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .btn-secondary {
+            background: var(--color-navy);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #1f2140;
+        }
+
+        .btn-small {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        /* Messages */
+        .message {
+            padding: 1.2rem;
+            border-radius: 6px;
+            margin-top: 1.5rem;
+            display: none;
+            text-align: center;
+        }
+
+        .message.success {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .message.error {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            color: #c62828;
+            display: block;
+        }
+
+        .message.info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            color: #1565c0;
+            display: block;
+        }
+
+        .message-title {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .message-text {
+            font-size: 0.95rem;
+        }
+
+        /* Thank You Section */
+        .thank-you {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(212, 165, 67, 0.15) 0%, rgba(181, 69, 42, 0.1) 100%);
+            border-radius: 8px;
+            border: 2px solid var(--color-gold);
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .thank-you.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .thank-you-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.8rem;
+            color: var(--color-rust);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .thank-you-text {
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .thank-you-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-to-website {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.5rem;
+            background: var(--color-navy);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .back-to-website:hover {
+            background: var(--color-rust);
+        }
+
+        /* File info */
+        .file-info {
+            font-size: 0.85rem;
+            color: var(--color-rust);
+            margin-top: 0.3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .upload-section {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .preview-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .dropzone {
+                padding: 2rem 1rem;
+            }
+
+            .dropzone-icon {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Bilder DDR</h1>
-    <p>Foto-Upload-Seite für DDR Bilder</p>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">ost <span>cola</span></a>
+            <a href="index.html" class="header-link">← Zur Website</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Title Section -->
+        <section class="title-section">
+            <h1>Bilder vor 1989</h1>
+            <p class="subtitle">Teile deine Erinnerungen aus der DDR-Zeit!</p>
+            <p class="intro-text">
+                Wir sammeln <strong>Fotos aus der DDR</strong> – egal ob Familienfotos, Straßenszenen,
+                alltägliche Momente oder Produkte aus dieser Zeit. Jedes Bild ist ein Stück Geschichte.
+                Hilf uns, diese Erinnerungen zu bewahren und zu teilen!
+            </p>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <h2 class="section-title">Dein Bild hochladen</h2>
+
+            <form id="uploadForm">
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="uploaderName">Dein Name <span class="optional">(optional)</span></label>
+                    <input type="text" id="uploaderName" name="uploaderName"
+                           placeholder="Dein Name (optional)" maxlength="100">
+                </div>
+
+                <!-- Description Field -->
+                <div class="form-group">
+                    <label for="photoDescription">Beschreibung <span class="optional">(optional)</span></label>
+                    <textarea id="photoDescription" name="photoDescription"
+                              placeholder="Beschreibe dein Bild (optional) – z.B. Ort, Jahr, Anlass"></textarea>
+                </div>
+
+                <!-- Drag & Drop Zone -->
+                <div class="form-group">
+                    <label>Deine Bilder <span class="optional">(JPG, PNG, WebP, HEIC, max. 15 MB pro Datei)</span></label>
+                    <div class="dropzone" id="dropzone">
+                        <div class="dropzone-icon">📸</div>
+                        <div class="dropzone-text">Bilder hier ablegen</div>
+                        <div class="dropzone-subtext">oder auf das Feld klicken, um Dateien auszuwählen</div>
+                    </div>
+                    <input type="file" id="fileInput" name="files" class="file-input" multiple
+                           accept="image/jpeg,image/png,image/webp,image/heic">
+                </div>
+
+                <!-- Preview Section -->
+                <div class="preview-section" id="previewSection">
+                    <div class="preview-title">Vorschau:</div>
+                    <div class="preview-container" id="previewContainer"></div>
+                </div>
+
+                <!-- Upload Progress -->
+                <div class="upload-progress" id="uploadProgress">
+                    <div id="progressItems"></div>
+                </div>
+
+                <!-- Messages -->
+                <div class="message info" id="infoMessage">
+                    <div class="message-title">Info</div>
+                    <div class="message-text" id="infoText"></div>
+                </div>
+
+                <div class="message error" id="errorMessage">
+                    <div class="message-title">Fehler</div>
+                    <div class="message-text" id="errorText"></div>
+                </div>
+
+                <div class="message success" id="successMessage">
+                    <div class="message-title">Erfolg</div>
+                    <div class="message-text" id="successText"></div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" id="clearBtn">Zurücksetzen</button>
+                    <button type="submit" class="btn-primary" id="uploadBtn" disabled>Bilder hochladen</button>
+                </div>
+            </form>
+
+            <!-- Thank You Message -->
+            <div class="thank-you" id="thankYouSection">
+                <div class="thank-you-icon">✨</div>
+                <h3 class="thank-you-title">Danke!</h3>
+                <p class="thank-you-text">Danke für dein Bild! Wir freuen uns über jede Erinnerung.</p>
+                <a href="index.html" class="back-to-website">← Zur Website</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Configuration
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwcLumnhpwKJWLlQj2DgzRtYxc_m62g4pJQa3_JYRwvjaQayFWIW8IkuBl6U7a6TLhY/exec';
+
+        // DOM Elements
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const dropzone = document.getElementById('dropzone');
+        const previewSection = document.getElementById('previewSection');
+        const previewContainer = document.getElementById('previewContainer');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const progressItems = document.getElementById('progressItems');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const uploaderNameInput = document.getElementById('uploaderName');
+        const photoDescriptionInput = document.getElementById('photoDescription');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const infoMessage = document.getElementById('infoMessage');
+        const errorText = document.getElementById('errorText');
+        const successText = document.getElementById('successText');
+        const infoText = document.getElementById('infoText');
+        const thankYouSection = document.getElementById('thankYouSection');
+
+        // State
+        let selectedFiles = [];
+        const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15 MB
+        const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+
+        // Dropzone Event Listeners
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('dragover');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('dragover');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        // File Input Change
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        // Handle Files
+        function handleFiles(files) {
+            clearMessages();
+            const fileArray = Array.from(files);
+            const validFiles = [];
+            const errors = [];
+
+            fileArray.forEach((file, index) => {
+                // Check file type
+                if (!ALLOWED_TYPES.includes(file.type)) {
+                    errors.push(`"${file.name}": Dateiformat nicht unterstützt (nur JPG, PNG, WebP, HEIC)`);
+                    return;
+                }
+
+                // Check file size
+                if (file.size > MAX_FILE_SIZE) {
+                    errors.push(`"${file.name}": Datei ist zu groß (max. 15 MB)`);
+                    return;
+                }
+
+                validFiles.push(file);
+            });
+
+            // Display errors
+            if (errors.length > 0) {
+                showError(errors.join('<br>'));
+            }
+
+            // Add valid files to selection
+            if (validFiles.length > 0) {
+                selectedFiles = [...selectedFiles, ...validFiles];
+                updatePreview();
+            }
+
+            // Update button state
+            uploadBtn.disabled = selectedFiles.length === 0;
+        }
+
+        // Update Preview
+        function updatePreview() {
+            if (selectedFiles.length === 0) {
+                previewSection.style.display = 'none';
+                return;
+            }
+
+            previewSection.style.display = 'block';
+            previewContainer.innerHTML = '';
+
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+
+                    const size = (file.size / (1024 * 1024)).toFixed(1);
+
+                    previewItem.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview" class="preview-image">
+                        <div class="preview-info">
+                            <div>${file.name}</div>
+                            <div>${size} MB</div>
+                        </div>
+                        <button type="button" class="preview-remove btn-small" onclick="removeFile(${index})">✕</button>
+                    `;
+
+                    previewContainer.appendChild(previewItem);
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Remove File
+        window.removeFile = function(index) {
+            selectedFiles.splice(index, 1);
+            updatePreview();
+            uploadBtn.disabled = selectedFiles.length === 0;
+        };
+
+        // Clear All
+        clearBtn.addEventListener('click', () => {
+            selectedFiles = [];
+            fileInput.value = '';
+            uploaderNameInput.value = '';
+            photoDescriptionInput.value = '';
+            previewSection.style.display = 'none';
+            progressItems.innerHTML = '';
+            uploadProgress.style.display = 'none';
+            uploadBtn.disabled = true;
+            clearMessages();
+            thankYouSection.classList.remove('show');
+        });
+
+        // Form Submit
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (selectedFiles.length === 0) {
+                showError('Bitte wähle mindestens ein Bild aus.');
+                return;
+            }
+
+            if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbwcLumnhpwKJWLlQj2DgzRtYxc_m62g4pJQa3_JYRwvjaQayFWIW8IkuBl6U7a6TLhY/exec') {
+                showError('Fehler: Google Apps Script URL nicht konfiguriert.');
+                return;
+            }
+
+            clearMessages();
+            uploadProgress.style.display = 'block';
+            progressItems.innerHTML = '';
+            uploadBtn.disabled = true;
+            clearBtn.disabled = true;
+
+            const uploaderName = uploaderNameInput.value.trim();
+            const photoDescription = photoDescriptionInput.value.trim();
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                const progressId = `progress-${i}`;
+
+                // Create progress item
+                const progressItem = document.createElement('div');
+                progressItem.className = 'progress-item';
+                progressItem.id = progressId;
+                progressItem.innerHTML = `
+                    <div class="filename">${file.name}</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <div class="progress-status">Wird vorbereitet...</div>
+                `;
+                progressItems.appendChild(progressItem);
+
+                // Upload file
+                try {
+                    await uploadFile(file, uploaderName, photoDescription, progressId);
+                    successCount++;
+                } catch (error) {
+                    errorCount++;
+                    const statusEl = document.querySelector(`#${progressId} .progress-status`);
+                    statusEl.textContent = 'Fehler beim Upload';
+                    statusEl.style.color = '#d32f2f';
+                }
+            }
+
+            uploadBtn.disabled = false;
+            clearBtn.disabled = false;
+
+            // Show results
+            if (errorCount === 0) {
+                thankYouSection.classList.add('show');
+                // Reset form after 2 seconds
+                setTimeout(() => {
+                    selectedFiles = [];
+                    fileInput.value = '';
+                    uploaderNameInput.value = '';
+                    photoDescriptionInput.value = '';
+                    previewSection.style.display = 'none';
+                    progressItems.innerHTML = '';
+                    uploadProgress.style.display = 'none';
+                    uploadBtn.disabled = true;
+                    clearMessages();
+                }, 2000);
+            } else {
+                showError(`${successCount} von ${selectedFiles.length} Bilder wurden hochgeladen. ${errorCount} Fehler.`);
+            }
+        });
+
+        // Upload File
+        async function uploadFile(file, uploaderName, photoDescription, progressId) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = async (e) => {
+                    try {
+                        const base64Data = e.target.result.split(',')[1];
+                        const fileName = file.name;
+                        const mimeType = file.type;
+
+                        const payload = {
+                            action: 'upload',
+                            album: 'ddr',
+                            fileName: fileName,
+                            mimeType: mimeType,
+                            data: base64Data,
+                            uploaderName: uploaderName,
+                            photoDescription: photoDescription
+                        };
+
+                        const response = await fetch(SCRIPT_URL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        // Update progress
+                        const progressEl = document.querySelector(`#${progressId} .progress-fill`);
+                        const statusEl = document.querySelector(`#${progressId} .progress-status`);
+
+                        if (progressEl) progressEl.style.width = '100%';
+                        if (statusEl) statusEl.textContent = 'Upload abgeschlossen ✓';
+
+                        resolve();
+                    } catch (error) {
+                        const statusEl = document.querySelector(`#${progressId} .progress-status`);
+                        if (statusEl) statusEl.textContent = 'Fehler beim Upload';
+                        reject(error);
+                    }
+                };
+
+                reader.onerror = () => {
+                    reject(new Error('Fehler beim Lesen der Datei'));
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Message Functions
+        function showError(message) {
+            errorText.innerHTML = message;
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+            infoMessage.style.display = 'none';
+        }
+
+        function showSuccess(message) {
+            successText.innerHTML = message;
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            infoMessage.style.display = 'none';
+        }
+
+        function showInfo(message) {
+            infoText.innerHTML = message;
+            infoMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+        }
+
+        function clearMessages() {
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            infoMessage.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
