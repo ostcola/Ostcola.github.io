@@ -397,6 +397,59 @@
         .deadline.overdue { color: var(--color-red); font-weight: 600; }
         .deadline.soon { color: var(--color-yellow); font-weight: 600; }
 
+
+        /* Kategorie select */
+        .kategorie-select {
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            appearance: auto;
+            transition: border-color 0.3s;
+        }
+        .kategorie-select:focus { outline: none; border-color: var(--color-rust); }
+
+        /* Details input */
+        .details-input {
+            width: 100%;
+            min-width: 140px;
+            padding: 0.3rem 0.5rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: #666;
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .details-input:hover { border-color: #ddd; }
+        .details-input:focus { outline: none; border-color: var(--color-rust); background: white; color: #333; }
+
+        /* Deadline date input */
+        .deadline-input {
+            padding: 0.3rem 0.5rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .deadline-input:hover { border-color: #ddd; }
+        .deadline-input:focus { outline: none; border-color: var(--color-rust); background: white; }
+        .deadline-input.overdue { color: var(--color-red); font-weight: 600; }
+        .deadline-input.soon { color: var(--color-yellow); font-weight: 600; }
+
+        /* Deadline styling */
+        .deadline { white-space: nowrap; }
+        .deadline.overdue { color: var(--color-red); font-weight: 600; }
+        .deadline.soon { color: var(--color-yellow); font-weight: 600; }
+
         /* Nr. column */
         .nr { color: #aaa; font-size: 0.8rem; text-align: center; }
 
@@ -673,6 +726,7 @@ const TAB_CONFIG = [
 // 4) Dropdown-Optionen
 const STATUS_OPTIONS = ['Offen', 'In Bearbeitung', 'Erledigt'];
 const PERSON_OPTIONS = ['', 'Alex', 'Maik', 'Thorsten', 'Thorsten & Alex', 'Alle'];
+const KATEGORIE_OPTIONS = ['Organisation', 'Location', 'Sicherheit', 'Technik', 'Gastronomie', 'Programm', 'Marketing', 'Bar', 'Service'];
 
 // ╔══════════════════════════════════════════════════════╗
 // ║  APP LOGIC                                           ║
@@ -857,15 +911,19 @@ function renderTable() {
 
         return `<tr data-row="${t.row}">
             <td class="nr">${t.nr}</td>
-            <td><span class="cat-badge ${catClass}">${t.kategorie}</span></td>
-            <td><strong>${t.aufgabe}</strong></td>
-            <td style="color:#666; font-size:0.85rem">${t.details}</td>
             <td>
-                <select class="person-select" onchange="updateField(${t.row},'verantwortlich',this.value)" ${activeTab !== 0 ? '' : ''}>
-                    ${PERSON_OPTIONS.map(p => `<option value="${p}" ${p === t.verantwortlich ? 'selected' : ''}>${p || '–'}</option>`).join('')}
+                <select class="kategorie-select" style="${getCatSelectStyle(t.kategorie)}" onchange="updateField(${t.row},'kategorie',this.value); this.style.cssText=getCatSelectStyle(this.value)">
+                    ${KATEGORIE_OPTIONS.map(k => `<option value="${k}" ${k === t.kategorie ? 'selected' : ''}>${k}</option>`).join('')}
                 </select>
             </td>
-            <td class="deadline ${deadlineClass}">${t.deadline}</td>
+            <td><strong>${t.aufgabe}</strong></td>
+            <td><input class="details-input" value="${escHtml(t.details)}" onchange="updateField(${t.row},'details',this.value)" placeholder="Details..."></td>
+            <td>
+                <select class="person-select" onchange="updateField(${t.row},'verantwortlich',this.value)">
+                    ${PERSON_OPTIONS.map(p => `<option value="${p}" ${p === t.verantwortlich ? 'selected' : ''}>${p || '\u2013'}</option>`).join('')}
+                </select>
+            </td>
+            <td><input type="date" class="deadline-input ${deadlineClass}" value="${deadlineToISO(t.deadline)}" onchange="updateField(${t.row},'deadline',isoToDeadline(this.value)); this.className='deadline-input '+getDeadlineClass(isoToDeadline(this.value))"></td>
             <td>
                 <select class="status-select ${statusClass}" onchange="updateField(${t.row},'status',this.value); this.className='status-select status-'+getStatusCss(this.value)">
                     ${STATUS_OPTIONS.map(s => `<option value="${s}" ${s === t.status ? 'selected' : ''}>${s}</option>`).join('')}
@@ -876,6 +934,12 @@ function renderTable() {
     }).join('');
 
     updateStats();
+}
+
+function getStatusCss(val) {
+    if (val === 'Erledigt') return 'erledigt';
+    if (val === 'In Bearbeitung') return 'bearbeitung';
+    return 'offen';
 }
 
 function getStatusCss(val) {
@@ -899,6 +963,34 @@ function getDeadlineClass(d) {
 
 function escHtml(s) {
     return (s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+function deadlineToISO(d) {
+    if (!d) return '';
+    const parts = d.split('.');
+    if (parts.length !== 3) return '';
+    return parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0');
+}
+function isoToDeadline(iso) {
+    if (!iso) return '';
+    const parts = iso.split('-');
+    if (parts.length !== 3) return '';
+    return parts[2] + '.' + parts[1] + '.' + parts[0];
+}
+
+function getCatSelectStyle(kat) {
+    const styles = {
+        'Organisation': 'background:#e8e0f0;color:#5b3a8c',
+        'Location': 'background:#dceef8;color:#1a5276',
+        'Sicherheit': 'background:#fde8e8;color:#922b21',
+        'Technik': 'background:#fef5e7;color:#7e5109',
+        'Gastronomie': 'background:#e8f8f0;color:#1a7a4c',
+        'Programm': 'background:#fce4ec;color:#ad1457',
+        'Marketing': 'background:#fff3e0;color:#e65100',
+        'Bar': 'background:#e0f2f1;color:#00695c',
+        'Service': 'background:#f3e5f5;color:#7b1fa2'
+    };
+    return styles[kat] || '';
 }
 
 // ── Save changes ──
