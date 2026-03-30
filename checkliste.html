@@ -967,9 +967,20 @@ function escHtml(s) {
 
 function deadlineToISO(d) {
     if (!d) return '';
+    // Format tt.mm.jjjj
     const parts = d.split('.');
-    if (parts.length !== 3) return '';
-    return parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0');
+    if (parts.length === 3 && parts[2].length === 4) {
+        return parts[2] + '-' + parts[1].padStart(2,'0') + '-' + parts[0].padStart(2,'0');
+    }
+    // Google Sheets JS date string, e.g. "Mon Mar 30 2026 00:00:00 GMT+0200 ..."
+    const dt = new Date(d);
+    if (!isNaN(dt.getTime())) {
+        const y = dt.getFullYear();
+        const m = String(dt.getMonth() + 1).padStart(2,'0');
+        const day = String(dt.getDate()).padStart(2,'0');
+        return y + '-' + m + '-' + day;
+    }
+    return '';
 }
 function isoToDeadline(iso) {
     if (!iso) return '';
